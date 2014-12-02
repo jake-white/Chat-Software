@@ -27,20 +27,18 @@ public class ClientConnection implements Runnable {
 	}
 
 	public void run() {
+		
+		int thread_i = i;
 		disconnectCheck.start();
 		System.out.println("test");
 		String line;
 		PrintWriter[] out = new PrintWriter[200];
-		try {
-			in[i]= new BufferedReader(new InputStreamReader(
-					client.getInputStream()));
-		} catch (IOException e) {
-			System.out.println(serverSide.i);
-		}
 		while (true) {
 			try {
+				in[thread_i]= new BufferedReader(new InputStreamReader(
+						client.getInputStream()));
 				lastOut = i;
-				line = in[i].readLine();
+				line = in[thread_i].readLine();
 				serverSide.text.append("\n" + line);
 				for (int count = 0; count < 200; ++count) {
 					if (serverSide.out[count] != null) {
